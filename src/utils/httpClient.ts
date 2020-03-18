@@ -32,6 +32,7 @@ export class HttpClient {
                         //FIXME logging
                         console.log(ex.message);
                         console.log(ex.statusMessage);
+                        analyzeResponse.errorDetail = ex.message;
                     }
                 }
                 if(analyzeResponse.statusCode === 200) {

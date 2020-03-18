@@ -3,7 +3,7 @@ import { HttpClient } from "../utils/httpClient";
 import { ResponseTextDocuemntView } from "../views/responseTextDocumentView";
 import { AnalyzeResponse } from "../models/analyzeResponse";
 import { Range, TextEditor, window, ViewColumn, Uri, workspace } from "vscode";
-import { Selector } from "../utils/selector";
+import { Selector, validateRequest } from "../utils/selector";
 import { ResponseWebView } from "../views/responseWebView";
 
 export class AnalyzeController {
@@ -33,7 +33,7 @@ export class AnalyzeController {
             return;
         }
 
-        const errors = selectedRequest.hasErrors();
+        const errors = validateRequest(selectedRequest);
         if (errors && errors.length > 0) {
             window.showErrorMessage(errors.join("\r\n"), AnalyzeController.messageBoxOption);
             return;
@@ -61,7 +61,7 @@ export class AnalyzeController {
     }
 
     public async createAnalyzeEditor(filename?: string) {
-        const content = '###\nhost = "http://localhost:9200"\nindexName = ""\nanalyzerNames = [""]\ntext = ""\n';
+        const content = '###\n{\n  "host": "http://localhost:9200"\n  "indexName": ""\n  "analyzerNames": [""]\n  "text": ""\n}\n';
         const language = 'analyze';
         let doc = await workspace.openTextDocument({language, content});
         let editorColumn;

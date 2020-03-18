@@ -2,48 +2,40 @@ import { EOL } from 'os';
 import { TextEditor, Range } from "vscode";
 
 export const LineSplitterRegex: RegExp = /\r?\n/g;
-export const CommentIdentifiersRegex: RegExp = /^\s*(#|\/{2})/;
 
 export interface RequestRangeOptions {
     ignoreCommentLine?: boolean;
     ignoreEmptyLine?: boolean;
 }
 
-export class SelectedRequest {
+export interface SelectedRequest {
     text: string;
     host: string;
     indexName: string;
     analyzerNames: string[];
+}
 
-    public constructor(text: string, host: string, indexName: string, analyzerNames: string[]) {
-        this.text = text;
-        this.host = host;
-        this.indexName = indexName;
-        this.analyzerNames = analyzerNames;
+export function validateRequest(request: SelectedRequest): string[] {
+    let errors:string[] = [];
+    if(!request.text) {
+        errors.push("text is empty. ");
     }
-
-    public hasErrors(): string[] {
-        let errors:string[] = [];
-        if(!this.text) {
-            errors.push("text is empty. ");
-        }
-        if(!this.host) {
-            errors.push("host is empty. ");
-        }
-        if(!this.indexName) {
-            errors.push("indexName is empty. ");
-        }
-        if(!this.analyzerNames) {
-            errors.push("analyzerNames is empty. ");
-        } else {
-            for (const analyzerName of this.analyzerNames) {
-                if(!analyzerName) {
-                    errors.push("analyzerNames has empty string. ");
-                }
+    if(!request.host) {
+        errors.push("host is empty. ");
+    }
+    if(!request.indexName) {
+        errors.push("indexName is empty. ");
+    }
+    if(!request.analyzerNames) {
+        errors.push("analyzerNames is empty. ");
+    } else {
+        for (const analyzerName of request.analyzerNames) {
+            if(!analyzerName) {
+                errors.push("analyzerNames has empty string. ");
             }
         }
-        return errors;
     }
+    return errors;
 }
 
 
@@ -66,40 +58,10 @@ export class Selector {
             return null;
         }
 
-        // remove comment lines
-        let lines: string[] = selectedText.split(LineSplitterRegex).filter(l => !Selector.isCommentLine(l));
-        if (lines.length === 0) {
-            return null;
-        }
-
-        let host: string = "";
-        let analyzerNames: string[] = [];
-        let indexName: string = "";
-        let text: string = "";
-       
-        for (const line of lines) {
-            if (line.match(/host/)) {
-                host = this.getVariable(line);
-            } else if (line.match(/analyzerNames/)){
-                analyzerNames = this.getVariables(line);
-            } else if (line.match(/indexName/)) {
-                indexName = this.getVariable(line);
-            } else if (line.match(/text/)) {
-                text = this.getVariable(line);
-            }
-        }
-        
-        return new SelectedRequest(text, host, indexName, analyzerNames);
+        const json = JSON.parse(selectedText) as SelectedRequest;
+        return json;
     }
     
-    private static getVariable(line: string): string {
-        return JSON.parse(line.substring(line.indexOf("=")+1));
-    }
-
-    private static getVariables(line: string): string[] {
-        return JSON.parse(line.substring(line.indexOf("=")+1));
-    }
-
     public static getRequestRanges(lines: string[], options?: RequestRangeOptions): [number, number][] {
         options = {
                 ignoreCommentLine: true,
@@ -116,15 +78,13 @@ export class Selector {
             while (start <= end) {
                 const startLine = lines[start];
 
-                if (options.ignoreCommentLine && this.isCommentLine(startLine)
-                    || options.ignoreEmptyLine && this.isEmptyLine(startLine)) {
+                if (options.ignoreEmptyLine && this.isEmptyLine(startLine)) {
                     start++;
                     continue;
                 }
 
                 const endLine = lines[end];
-                if (options.ignoreCommentLine && this.isCommentLine(endLine)
-                    || options.ignoreEmptyLine && this.isEmptyLine(endLine)) {
+                if (options.ignoreEmptyLine && this.isEmptyLine(endLine)) {
                     end--;
                     continue;
                 }
@@ -141,6 +101,7 @@ export class Selector {
     public static isEmptyLine(line: string): boolean {
         return line.trim() === '';
     }
+    
     private static getDelimitedText(fullText: string, currentLine: number): string | null {
         const lines: string[] = fullText.split(LineSplitterRegex);
         const delimiterLineNumbers: number[] = this.getDelimiterRows(lines);
@@ -181,9 +142,4 @@ export class Selector {
         }
         return rows;
     }
-
-    public static isCommentLine(line: string): boolean {
-        return CommentIdentifiersRegex.test(line);
-    }
-
 }
