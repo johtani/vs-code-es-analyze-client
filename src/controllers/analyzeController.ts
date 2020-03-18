@@ -75,8 +75,8 @@ export class AnalyzeController {
     }
 
     public async createAnalyzeEditor(filename?: string) {
-        const content = '###\n{\n  "host": "http://localhost:9200"\n  "indexName": ""\n  "analyzerNames": [""]\n  "text": ""\n}\n';
-        const language = 'analyze';
+        const content = '###\n{\n  "host": "http://localhost:9200",\n  "indexName": "",\n  "analyzerNames": [""],\n  "text": ""\n}\n';
+        const language = 'esanalyze';
         let doc = await workspace.openTextDocument({language, content});
         let editorColumn;
         if (window.activeTextEditor) {
