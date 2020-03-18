@@ -1,6 +1,5 @@
 import { EOL } from 'os';
 import { TextEditor, Range } from "vscode";
-import { AnalyzeRequest } from '../models/analyzeRequest';
 
 export const LineSplitterRegex: RegExp = /\r?\n/g;
 export const CommentIdentifiersRegex: RegExp = /^\s*(#|\/{2})/;

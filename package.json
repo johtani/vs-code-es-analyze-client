@@ -2,7 +2,7 @@
 	"name": "elasticsearch-analyze-api-client",
 	"displayName": "Elasticsearch Analyze API Client",
 	"description": "The client for Elasticsearch Analyze API",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"publisher": "johtani",
 	"author": {
 		"name": "Jun Ohtani"
@@ -56,8 +56,8 @@
 		"test-compile": "tsc -p ./"
 	},
 	"dependencies": {
-		"@types/request": "^2.48.4",
-		"request": "^2.88.2"
+		"@types/node-fetch": "^1.6.9",
+		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
