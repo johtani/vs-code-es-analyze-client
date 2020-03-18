@@ -29,7 +29,6 @@ export class HttpClient {
                             analyzeResponse.errorDetail = body.error.reason;
                         }
                     }catch(ex){
-                        //FIXME logging
                         console.log(ex.message);
                         console.log(ex.statusMessage);
                         analyzeResponse.errorDetail = ex.message;
