@@ -33,7 +33,17 @@
 				],
 				"extensions": [
 					".esanalyze"
-				]
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "analyze",
+				"scopeName": "source.esanalyze",
+				"embeddedLanguages": {
+					"meta.embedded.block.json": "json"
+				}
 			}
 		],
 		"commands": [
