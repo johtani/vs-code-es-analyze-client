@@ -26,24 +26,15 @@
 	"contributes": {
 		"languages": [
 			{
-				"id": "analyze",
+				"id": "esanalyze",
 				"aliases": [
-					"Analyze",
-					"analyze"
+					"Elasticsearch Analyze",
+					"esanalyze"
 				],
 				"extensions": [
 					".esanalyze"
 				],
 				"configuration": "./language-configuration.json"
-			}
-		],
-		"grammars": [
-			{
-				"language": "analyze",
-				"scopeName": "source.esanalyze",
-				"embeddedLanguages": {
-					"meta.embedded.block.json": "json"
-				}
 			}
 		],
 		"commands": [

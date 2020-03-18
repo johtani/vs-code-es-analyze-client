@@ -8,8 +8,8 @@ export function activate(context: ExtensionContext) {
     let codelensProvider = new CodelensProvider();
 
     const documentSelector = [
-        { language: 'analyze', scheme: 'file' },
-        { language: 'analyze', scheme: 'untitled' },
+        { language: 'esanalyze', scheme: 'file' },
+        { language: 'esanalyze', scheme: 'untitled' },
     ];
 	languages.registerCodeLensProvider(documentSelector, codelensProvider);
 	

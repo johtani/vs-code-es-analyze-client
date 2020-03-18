@@ -24,7 +24,6 @@ export class ResponseWebView {
             this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
         }
         this._panel.webview.html = this.getHtmlForWebview(responses, originalText);
-
     }
 
     private getHtmlForWebview(responses: AnalyzeResponse[], originalText: string) {
@@ -37,6 +36,9 @@ export class ResponseWebView {
                 div.error {
                     color: #DC143C;
                 }
+                div.attributes {
+                    display: none;
+                }
                 </style>
                 <title>Analyze Responses</title>
             </head>
@@ -45,11 +47,32 @@ export class ResponseWebView {
                   Original Text: ${originalText}
                 </div>
                 <br/>
+                <input id="switch" type="button" value="View details" onclick="switchDisplay()"/>
+                <br/>
                 ${this.getTableView(responses)}
                 * [start:end] is each token's start offset and end offset in input text.
                 <br/>
                 <br/>
                 ${this.showErrors(responses)}
+                <script>
+                document.querySelectorAll(".attributes").forEach(function(d) {d.style.display="none"});
+                function switchDisplay(){
+                    const attrs = document.querySelectorAll(".attributes");
+                    attrs.forEach(function(d) {
+                        if(d.style.display=="block") {
+                            d.style.display = "none";
+                        }else{
+                            d.style.display = "block";
+                        }
+                    });
+                    const button = document.getElementById("switch");
+                    if(button.value=="View details") {
+                        button.value = "Hide details";
+                    } else {
+                        button.value = "View details";
+                    }
+                }
+                </script>
             </body>
             </html>`;
     }
@@ -115,22 +138,23 @@ export class ResponseWebView {
     }
 
     private getAttributesInCell(tokens: TokenInfo[]) {
-        let cell = ["token"];
+        let cell = ["token" + '<div class="attributes">'];
         if(tokens.length > 0) {
             Object.keys(tokens[0]).forEach(function (key) {
                 if (key !== "token") {
                     cell.push(key);
                 }
             });
+            ;
         }
-        return cell.join("<hr/>\n");
+        return  cell.join("<hr/>\n") + '</div>';
     }
 
     private getTokensInCell(tokens: TokenInfo[], cellIndex: number) {
         let cell: string[] = [];
         for (let index = 0; index < tokens.length; index++) {
             if (tokens[index].position === cellIndex) {
-                cell.push(tokens[index].token!);
+                cell.push(tokens[index].token!+ '<div class="attributes">');
                 Object.keys(tokens[index]).forEach(function (key) {
                     if (key !== "token") {
                         const token: any = tokens[index];
@@ -139,7 +163,7 @@ export class ResponseWebView {
                 });
             }
         }
-        return cell.join("<hr/>\n");
+        return cell.join("<hr/>\n") + '</div>';
     }
 
     private getMaxTokenListLength(responses: AnalyzeResponse[]) {
@@ -161,6 +185,7 @@ export class ResponseWebView {
         ResponseWebView.currentPanel = undefined;
         if (this._panel) {
             this._panel.dispose();
+            this._panel = undefined;
         }
         while (this._disposables.length) {
             const x = this._disposables.pop();
