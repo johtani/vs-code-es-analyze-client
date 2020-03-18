@@ -2,7 +2,7 @@
 	"name": "elasticsearch-analyze-api-client",
 	"displayName": "Elasticsearch Analyze API Client",
 	"description": "The client for Elasticsearch Analyze API",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publisher": "johtani",
 	"author": {
 		"name": "Jun Ohtani"
