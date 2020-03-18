@@ -1,0 +1,78 @@
+{
+	"name": "elasticsearch-analyze-api-client",
+	"displayName": "Elasticsearch Analyze API Client",
+	"description": "The client for Elasticsearch Analyze API",
+	"version": "0.0.1",
+	"publisher": "johtani",
+	"author": {
+		"name": "Jun Ohtani"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/johtani/vs-code-es-analyze-client/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/johtani/vs-code-es-analyze-client"
+	},
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "analyze",
+				"aliases": [
+					"Analyze",
+					"analyze"
+				],
+				"extensions": [
+					".esanalyze"
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "send.elasticsearch.analyze",
+				"title": "Send Analyze Request",
+				"category": "Elasticsearch Analyze Client"
+			},
+			{
+				"command": "create.elasticsearch.analyze",
+				"title": "Create Elasticsearch Analyze Request",
+				"category": "Elasticsearch Analyze Client"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"test-compile": "tsc -p ./"
+	},
+	"dependencies": {
+		"@types/request": "^2.48.4",
+		"request": "^2.88.2"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.43.0",
+		"@typescript-eslint/eslint-plugin": "^2.18.0",
+		"@typescript-eslint/parser": "^2.18.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.0.1",
+		"ts-loader": "^6.2.1",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0",
+		"webpack": "^4.42.0",
+		"webpack-cli": "^3.3.11"
+	}
+}
