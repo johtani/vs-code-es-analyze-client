@@ -1,6 +1,6 @@
 # elasticsearch-analyze-api-client README
 
-The client extension for [Elasticsearch Analyze API](). The client provides viewer of Analyze API Response. The API response is JSON, but it is hard to 
+The client extension for [Elasticsearch Analyze API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-analyze.html). The client provides viewer of Analyze API Response. The API response is JSON, but it is hard to 
 
 ## Features
 
@@ -26,9 +26,7 @@ The client extension for [Elasticsearch Analyze API](). The client provides view
 
 ## Release Notes
 
-### 0.1.0
-
-Initial release
+See [CHANGELOG.md](./CHANGELOG.md)
 
 ## LICENSE
 

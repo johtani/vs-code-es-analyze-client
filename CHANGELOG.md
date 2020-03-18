@@ -2,8 +2,13 @@
 
 All notable changes to the "elasticsearch-analyze-api-client" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [unrelease]
 
-## [Unreleased]
+
+## [0.1.0]
+
+- Fix bug about file extension
+
+## [0.1.0]
 
 - Initial release
