@@ -61,7 +61,6 @@ export class AnalyzeController {
     }
 
     public async createAnalyzeEditor(filename?: string) {
-        //Analyze 用のパラメータを設定する".analyze"拡張子のファイル生成する処理
         const content = '###\nhost = "http://localhost:9200"\nindexName = ""\nanalyzerNames = [""]\ntext = ""\n';
         const language = 'analyze';
         let doc = await workspace.openTextDocument({language, content});
