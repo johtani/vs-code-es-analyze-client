@@ -5,8 +5,8 @@ The client extension for [Elasticsearch Analyze API](). The client provides view
 ## Features
 
 * Send Analyze Request in editor and view response in another editor with webview
-  * Parameters can be set in the file that has `.analyze` extension.
-* Create `.analyze` file from template
+  * Parameters can be set in the file that has `.esanalyze` extension.
+* Create `.esanalyze` file from template
 
 ## Usage
 
@@ -21,7 +21,8 @@ The client extension for [Elasticsearch Analyze API](). The client provides view
 
 ## Known Issues
 
-None.
+* Only support basic authentication
+* Only support `analyzer` and `text` params in Analyze API. No support `filter`, `normalizer`, `tokenizer`, `field`, `explain`, `char_filter`, `attributes`
 
 ## Release Notes
 
