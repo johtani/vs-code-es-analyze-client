@@ -1,0 +1,19 @@
+{
+    "brackets": [
+        ["{", "}"],
+        ["[", "]"]
+    ],
+    "autoClosingPairs": [
+        { "open": "{", "close": "}"},
+		{ "open": "[", "close": "]", "notIn": ["string"] },
+		{ "open": "(", "close": ")", "notIn": ["string"] },
+        { "open": "'", "close": "'", "notIn": ["string"]},
+        { "open": "\"", "close": "\"", "notIn": ["string"]}
+    ],
+    "folding": {
+        "markers": {
+            "start": "^{",
+            "end": "^}$"
+        }
+    }
+}

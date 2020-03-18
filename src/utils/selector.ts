@@ -41,7 +41,7 @@ export function validateRequest(request: SelectedRequest): string[] {
 
 export class Selector {
 
-    public static async getRequest(editor: TextEditor, range: Range | null = null): Promise<SelectedRequest | null> {
+    public static async getRequestText(editor: TextEditor, range: Range | null = null): Promise<string | null> {
         if (!editor.document) {
             return null;
         }
@@ -57,9 +57,7 @@ export class Selector {
         if (selectedText === null) {
             return null;
         }
-
-        const json = JSON.parse(selectedText) as SelectedRequest;
-        return json;
+        return selectedText;
     }
     
     public static getRequestRanges(lines: string[], options?: RequestRangeOptions): [number, number][] {

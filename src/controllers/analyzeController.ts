@@ -3,7 +3,7 @@ import { HttpClient } from "../utils/httpClient";
 import { ResponseTextDocuemntView } from "../views/responseTextDocumentView";
 import { AnalyzeResponse } from "../models/analyzeResponse";
 import { Range, TextEditor, window, ViewColumn, Uri, workspace } from "vscode";
-import { Selector, validateRequest } from "../utils/selector";
+import { Selector, SelectedRequest, validateRequest } from "../utils/selector";
 import { ResponseWebView } from "../views/responseWebView";
 
 export class AnalyzeController {
@@ -26,10 +26,24 @@ export class AnalyzeController {
              return;
         }
 
-        const selectedRequest = await Selector.getRequest(editor, range);
+        const selectedText = await Selector.getRequestText(editor, range);
+
+        if (!selectedText) {
+            window.showErrorMessage("There is no parameters/text in the editor. ", AnalyzeController.messageBoxOption);
+            return;
+        }
+
+        let selectedRequest = undefined;
+        try {
+            selectedRequest = JSON.parse(selectedText) as SelectedRequest;
+        } catch(ex) {
+            console.log(ex);
+            window.showErrorMessage("Parse error with text in the editor. " + ex, AnalyzeController.messageBoxOption);
+            return;
+        }
 
         if (!selectedRequest) {
-            window.showErrorMessage("There is no parameters/text in the editor. ", AnalyzeController.messageBoxOption);
+            window.showErrorMessage("Parse error with text in the editor. ", AnalyzeController.messageBoxOption);
             return;
         }
 
