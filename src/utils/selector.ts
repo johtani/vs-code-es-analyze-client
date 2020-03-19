@@ -23,9 +23,6 @@ export function validateRequest(request: SelectedRequest): string[] {
     if(!request.host) {
         errors.push("host is empty. ");
     }
-    if(!request.indexName) {
-        errors.push("indexName is empty. ");
-    }
     if(!request.analyzerNames) {
         errors.push("analyzerNames is empty. ");
     } else {
