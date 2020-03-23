@@ -61,10 +61,13 @@ export class AnalyzeController {
         );
         let responses: AnalyzeResponse[] = [];
 
-        for (var analyzer of selectedRequest.analyzerNames) {
+        for (const analyzer of selectedRequest.analyzerNames) {
             request.analyzeName = analyzer;
-            let response = await this._httpClient.send(request);
-            responses.push(response);
+            await this._httpClient.send(request).then((response) => {
+                responses.push(response);
+            }).catch((err) => {
+                responses.push(err);
+            });
         }
 
         const editorColumn = window.activeTextEditor!.viewColumn;

@@ -46,7 +46,8 @@ export class HttpClient {
                     console.log("error!!");
                     let analyzeResponse = {
                         statusCode: error.statusCode,
-                        message: error.message
+                        completed: false,
+                        errorDetail: error.message
                     };
                     reject(analyzeResponse);
                 }

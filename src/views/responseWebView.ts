@@ -94,9 +94,9 @@ export class ResponseWebView {
     }
 
     private getTableView(responses: AnalyzeResponse[]) {
-        let columnSize = this.getMaxTokenListLength(responses);
+        const columnSize = this.getMaxTokenListLength(responses);
 
-        let tables = `
+        const tables = `
         <table border="1">
           <thead>
             <tr>
