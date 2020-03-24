@@ -5,6 +5,7 @@ All notable changes to the "elasticsearch-analyze-api-client" extension will be 
 ## [unrelease]
 
 - No validation for index name.
+- Fix handling timeout
 
 ## [0.2.0]
 
